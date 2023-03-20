@@ -36,7 +36,7 @@ class EmployeesController < ApplicationController
             authorize @employee
 
             if @employee.save
-                redirect_to employees_path, notice: 'Employee has been created successfully!'
+                render ('json_renders/show')
             else
                 render :new
             end
@@ -51,13 +51,13 @@ class EmployeesController < ApplicationController
 
             if params[:cd] != nil && params[:amt] != nil && params[:desc] != nil && params[:invid] != nil
                 if @employee.expenses.build(creation_date:params[:cd], amount: params[:amt], description: params[:desc], invoice_id: params[:invid], status: invoice_validator_system_response(params[:invid])).save
-                    redirect_to employee_path(@employee), notice: 'Expense Added'
+                    render ('json_renders/show') #json renders using jbuilder for uisng jsons render
                 else
                     render :new
                 end
             elsif params[:excd] != nil && params[:exdesc] != nil
                 if @employee.expense_reports.build(creation_date:params[:excd], total_amount: 0, description: params[:exdesc], status: 'Submitted for Approval').save
-                    redirect_to employee_path(@employee), notice: 'Expense Added'
+                    render ('json_renders/show')
                 else
                     render :new
                 end
