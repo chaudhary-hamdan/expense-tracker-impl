@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ExpenseTracker</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%# javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body bgcolor="skyblue">
+
+  <%= link_to 'Home', '/' %>
+  <% if current_user&.admin %>
+    | <%= link_to 'View All Employees', employees_path %>
+    | <%= link_to 'View All Expense Reports', expense_reports_path %>
+    | <%= link_to 'View All Ungrouped Expenses', expenses_path %>
+  <% end %>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </body>
+</html>

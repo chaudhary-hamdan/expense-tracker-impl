@@ -1,0 +1,21 @@
+<h2>
+<strong>Dashboard</strong>
+<br><br>
+<% if current_user&.admin? %>
+    <%= link_to 'View All Employees', employees_path %><br><br>
+    <%= link_to 'View All Expense Reports', expense_reports_path %><br><br>
+    <%= link_to 'View All Ungrouped Expenses', expenses_path %><br>    
+<% end %>
+    
+</h2>
+
+
+<% if current_user %>
+    <% if Employee.find_by(email: current_user.email) != nil %>
+        <%= link_to 'View My Employee Page', employee_path(Employee.find_by(email:current_user.email)) %>
+    <% end %>
+    <%= button_to 'Sign out', destroy_user_session_path, method: :delete %>
+<% else %>
+    <%= link_to 'Sign up', new_user_registration_path %>
+    <%= link_to 'Sign in', new_user_session_path %>
+<% end %>

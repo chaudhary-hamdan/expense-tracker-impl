@@ -1,0 +1,21 @@
+<%= form_with(model: [comment]) do |form| %>
+
+    <% if @comment.errors.any? %>
+        <% @comment.errors.full_messages.each do |message| %>
+            <p><%= message %></p>
+        <% end %>
+    <% end %>
+
+    <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+    </div><br>
+    <div>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+    </div><br><br><br>
+
+    <%= form.submit %>
+
+<% end %>
+<br><br>

@@ -1,0 +1,39 @@
+
+
+<h1>Listing Ungrouped Expenses</h1><br>
+<%= @expenses.count %> Records<br><br>
+<%= search_form_for @q do |form| %>
+    <%= form.label :employee_name %>:
+    <%= form.text_field :employee_name_eq %>
+    <%= form.submit %>
+    <br><br>
+<% end %>
+
+<table border='1' style='border-collapse:collapse'>
+    <thead>
+        <tr>
+            <th>Invoice ID</th>
+            <th>Creation Date</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <% @expenses.each do |expense| %>
+            <tr>
+                <td><%= expense.invoice_id %></td>
+                <td><%= expense.creation_date %></td>
+                <td><%= expense.amount %></td>
+                <td><%= expense.description %></td>
+                <td><%= expense.status %></td>
+                <td><%= link_to 'View Expense', expense_path(expense) %></td>
+                <td><%= link_to 'Edit Expense', edit_expense_path(expense) %></td>
+                <td><%= button_to 'Delete Expense', expense_path(expense), method: :delete %></td>
+            </tr>
+        <% end %>
+    </tbody>
+
+</table>

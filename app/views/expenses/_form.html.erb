@@ -1,0 +1,39 @@
+<%= form_with(model: [expense]) do |form| %>
+
+    <% if @expense.errors.any? %>
+        <% @expense.errors.full_messages.each do |message| %>
+            <p><%= message %></p>
+        <% end %>
+    <% end %>
+
+    <div>
+    <%= form.label :invoice %> ID<br>
+    <%= form.number_field :invoice_id %>
+    </div><br>
+    <div>
+    <%= form.label :creation_date %><br>
+    <%= form.date_field :creation_date %>
+    </div><br>
+    <div>
+    <%= form.label :amount %><br>
+    <%= form.number_field :amount %>
+    </div><br>
+    <div>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+    </div><br>
+    
+    <% if current_user.admin? %>
+        <div>
+        <%= form.label :status %><br>
+        <%= form.select :status, ['Submitted for Approval', 'Approved', 'Rejected'] %>
+        </div><br>
+    <% end %>
+    <div>
+    <%= form.label :invoice_image %><br>
+    <%= form.file_field :invoice_image %>
+    </div><br><br><br>
+
+    <%= form.submit %>
+
+<% end %>

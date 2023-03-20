@@ -1,0 +1,17 @@
+
+<strong>Expense details:-</strong><br><br>
+
+Invoice ID: <%= @expense.invoice_id %><br>
+Creation Date: <%= @expense.creation_date %><br>
+Amount: <%= @expense.amount %><br>
+Description: <%= @expense.description %><br>
+Status: <%= @expense.status %><br>
+<% if @expense.invoice_image.attached? %>
+    Invoice Image: <%= image_tag @expense.invoice_image, style: 'height:100px;width:auto;' %>
+<% end %>
+<br>
+<% if @expense.expense_report != nil %>
+    <%= link_to 'Expense Report', expense_report_path(@expense.expense_report) %> |
+<% end %>
+
+<%= link_to 'Edit', edit_expense_path %>

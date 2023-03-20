@@ -1,0 +1,104 @@
+
+<strong>Employee details:-</strong><br><br>
+
+
+Name: <%= @employee.name %><br>
+Email: <%= @employee.email %><br>
+Employment Status: <%= @employee.employment_status %><br>
+Department: <%= @employee.department %><br>
+<br>
+
+| <%= link_to 'All Employees', employees_path %> | <%= link_to 'Edit', edit_employee_path %><br><br><br>
+
+
+<strong>Expense Reports:-</strong><br><br>
+
+<table border='1' style='border-collapse:collapse'>
+    <thead>
+        <tr>
+            <th>S No.</th>
+            <th>Date</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @employee.expense_reports.each_with_index do |expense_report, idx| %>
+            <tr>
+                <td><%= idx + 1 %>.</td>
+                <td><%= expense_report.creation_date %></td>
+                <td><%= expense_report.total_amount %></td>
+                <td><%= expense_report.status %></td>
+                <td><%= link_to 'View', expense_report_path(expense_report) %></td>
+                <td><%= link_to 'Edit', edit_expense_report_path(expense_report) %></td>
+                <td><%= button_to 'Delete', expense_report_path(expense_report), method: :delete %></td>
+            </tr>
+        <% end %>
+    </tbody>
+
+</table><br>
+<% if @employee.employment_status == 'Active' %>
+    <strong>Add Expense Report:</strong>
+        <form action="#">
+            <label for="excd">Creation Date:</label>
+            <input type="date" id="excd" name="excd"><br><br>
+            <label for="exdesc">Description:</label>
+            <input type="text" id="exdesc" name="exdesc"><br><br>
+
+        <input type="Submit" value="Submit">
+</form>
+<% end %>
+<br><br><br>
+
+<strong>Individual Expenses (which are not grouped):-</strong><br><br>
+
+<table border='1' style='border-collapse:collapse'>
+    <thead>
+        <tr>
+            <th>S No.</th>
+            <th>Invoice ID</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @employee.expenses.each_with_index do |expense, idx| %>
+            <tr>
+                <td><%= idx + 1 %>.</td>
+                <td><%= expense.invoice_id %></td>
+                <td><%= expense.creation_date %></td>
+                <td><%= expense.amount %></td>
+                <td><%= expense.status %></td>
+                <td><%= link_to 'View', expense_path(expense) %></td>
+                <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
+                <td><%= button_to 'Delete', expense_path(expense), method: :delete %></td>
+            </tr>
+        <% end %>
+    </tbody>
+
+</table>
+
+
+<br><br>
+<% if @employee.employment_status == 'Active' %>
+    <strong>Add Expense:</strong>
+    <form action="#">
+        <label for="cd">Creation Date:</label>
+        <input type="date" id="cd" name="cd"><br><br>
+        <label for="amt">Amount:</label>
+        <input type="number" id="amt" name="amt"><br><br>
+        <label for="desc">Description:</label>
+        <input type="text" id="desc" name="desc"><br><br>
+        <label for="invid">Invoice ID:</label>
+        <input type="number" id="invid" name="invid"><br><br>
+
+    <input type="Submit" value="Submit">
+    </form>
+<% end %>
+
+

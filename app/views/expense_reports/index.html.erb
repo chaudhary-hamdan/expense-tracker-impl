@@ -1,0 +1,46 @@
+
+
+<h1>Listing ExpenseReports</h1><br>
+<%= @expense_reports.count %> Records<br><br>
+<br><br><br>
+
+
+<%= search_form_for @q do |form| %>
+    <%= form.label :employee_name %>:
+    <%= form.text_field :employee_name_eq %>
+    <%= form.submit %>
+    <br><br>
+<% end %>
+
+
+<table border='1' style='border-collapse:collapse'>
+    <thead>
+        <tr>
+            <th>Creation Date</th>
+            <th>Employee Name</th>
+            <th>Total Amount</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <% @expense_reports.each do |expense_report| %>
+            <tr>
+                <td><%= expense_report.creation_date %></td>
+                <td><%= expense_report.employee.name %></td>
+                <td><%= expense_report.total_amount %></td>
+                <td><%= expense_report.description %></td>
+                <td><%= expense_report.status %></td>
+                <td><%= link_to 'View Expense Report Details, its Expenses and Comments', expense_report_path(expense_report) %></td>
+                <td><%= link_to 'Edit Expense Report Details', edit_expense_report_path(expense_report) %></td>
+                <td><%= button_to 'Delete Expense Report', expense_report_path(expense_report), method: :delete %></td>
+            </tr>
+        <% end %>
+    </tbody>
+
+</table>
+
+
+
