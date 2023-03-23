@@ -1,0 +1,106 @@
+
+<strong>ExpenseReport details:-</strong><br><br>
+
+Creation Date: <%= @expense_report.creation_date %><br>
+Total Amount: <%= @expense_report.total_amount %><br>
+Description: <%= @expense_report.description %><br>
+Status: <%= @expense_report.status %><br>
+<br><br>
+
+<strong>Employee of this Expense Report: </strong> <%= @expense_report.employee.name %>
+<br><br><br>
+<%= link_to 'Edit', edit_expense_report_path %>
+<br><br><br>
+<strong>Expenses of this report:-</strong><br><br>
+
+<table border='1' style='border-collapse:collapse'>
+    <thead>
+        <tr>
+            <th>S No.</th>
+            <th>Date</th>
+            <th>Invoice ID</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @expense_report.expenses.each_with_index do |expense, idx| %>
+            <tr>
+                <td><%= idx + 1 %>.</td>
+                <td><%= expense.creation_date %></td>
+                <td><%= expense.invoice_id %></td>
+                <td><%= expense.amount %></td>
+                <td><%= expense.status %></td>
+                <td><%= link_to 'View', expense_path(expense) %></td>
+                <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
+                <td><%= button_to 'Delete', expense_path(expense), method: :delete %></td>
+            </tr>
+        <% end %>
+    </tbody>
+
+</table>
+<br><br>
+
+
+
+<strong>Add Expense:</strong>
+<form action="#">
+    <label for="cd">Creation Date:</label>
+    <input type="date" id="cd" name="cd"><br><br>
+    <label for="amt">Amount:</label>
+    <input type="number" id="amt" name="amt"><br><br>
+    <label for="desc">Description:</label>
+    <input type="text" id="desc" name="desc"><br><br>
+    <label for="invid">Invoice ID:</label>
+    <input type="number" id="invid" name="invid"><br><br>
+
+  <input type="Submit" value="Submit">
+</form>
+
+
+
+<br><br><br>
+<strong>Comments:-</strong><br><br>
+
+<table border='1' style='border-collapse:collapse'>
+    <thead>
+        <tr>
+            <th>S No.</th>
+            <th>Date and Time</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @expense_report.comments.each_with_index do |comment, idx| %>
+            <tr>
+                <td><%= idx + 1 %>.</td>
+                <td><%= comment.created_at %></td>
+                <td><%= comment.name %></td>
+                <td><%= comment.description %></td>
+                <td><%= link_to 'View', comment_path(comment) %></td>
+                <td><%= button_to 'Delete', comment_path(comment), method: :delete %></td>
+            </tr>
+        <% end %>
+    </tbody>
+
+</table>
+<br><br>
+
+
+
+<strong>Add Comment:</strong>
+<form action="#">
+  <label for="des">Description:</label>
+  <input type="text" id="des" name="des"><br><br>
+  <input type="Submit" value="Submit">
+</form>
+
+
+
+
+

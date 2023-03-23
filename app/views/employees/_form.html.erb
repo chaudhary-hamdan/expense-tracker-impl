@@ -1,0 +1,28 @@
+<%= form_with(model: [employee]) do |form| %>
+
+    <% if @employee.errors.any? %>
+        <% @employee.errors.full_messages.each do |message| %>
+            <p><%= message %></p>
+        <% end %>
+    <% end %>
+
+    <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+    </div><br>
+    <div>
+    <%= form.label :email %><br>
+    <%= form.email_field :email %>
+    </div><br>
+    <div>
+    <%= form.label :employment_status %><br>
+    <%= form.select :employment_status, ['Active', 'Separated', 'Terminated'] %>
+    </div><br>
+    <div>
+    <%= form.label :department %><br>
+    <%= form.text_field :department %>
+    </div><br><br><br>
+
+    <%= form.submit %>
+
+<% end %>
