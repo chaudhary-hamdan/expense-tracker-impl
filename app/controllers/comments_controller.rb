@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
     def update
         begin
             authorize @comment
-            if @comment.update(comment_params)
+            if @comment.update!(comment_params)
                 redirect_to comment_path(@comment), notice: 'Comment has been updated successfully!'
             else
                 render :edit

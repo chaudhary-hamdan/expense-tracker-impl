@@ -58,13 +58,13 @@ class ExpensesController < ApplicationController
         begin
             authorize @expense
             amt = @expense.amount
-            if @expense.update(expense_params)
+            if @expense.update!(expense_params)
                 if @expense.expense_report != nil
                     @expense.expense_report.total_amount -= amt - @expense.total_amount
                 end
                 @expense.status = invoice_validator_system_response(@expense.invoice_id)
                 
-                if @expense.update(expense_params)
+                if @expense.update!(expense_params)
                     if expense_params[:status] == 'Approved'
                         ExpenseExpenseReportStatusChangeMailer.approved_notification.deliver_now!
                     elsif expense_params[:status] == 'Rejected'

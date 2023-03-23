@@ -11,12 +11,12 @@ class EmployeesController < ApplicationController
 
     def index
         begin
-            logger.info('============Into indexing============')
             authorize Employee
+            logger.info("#{current_user} logged in. Fetching emplloyees")
             @employees = Employee.all
-            logger.info('============Out of indexing============')
-        rescue 
-            logger.info('============Rendering error page============')
+            logger.info("Employees fetch for user #{current_user}")
+        rescue Pundit::NotAuthorizedError => e
+            logger.error("User is not active or logged in #{e.inspect}")
             render :file => 'public/404.html'
         end
     end
@@ -78,7 +78,7 @@ class EmployeesController < ApplicationController
     def update
         begin
             authorize @employee
-            if @employee.update(employee_params)
+            if @employee.update!(employee_params)
                 redirect_to employee_path(@employee), notice: 'Employee has been updated successfully!'
             else
                 render :edit

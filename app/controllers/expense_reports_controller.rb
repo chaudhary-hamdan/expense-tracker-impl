@@ -44,7 +44,7 @@ class ExpenseReportsController < ApplicationController
                     nm = "Admin"
                 end
                 if @expense_report.comments.build(name: nm, description: params[:des]).save
-                    ExpenseExpenseReportStatusChangeMailer.comment_added_notification.deliver_now!
+                    ExpenseExpenseReportStatusChangeMailer.comment_added_notification.deliver_later!
                     redirect_to expense_report_path(@expense_report), notice: 'Comment Added'
                 else
                     render :new
@@ -77,13 +77,13 @@ class ExpenseReportsController < ApplicationController
     def update
         begin
             authorize @expense_report
-            if @expense_report.update(expense_report_params)
+            if @expense_report.update!(expense_report_params)
                 if expense_report_params[:status] == 'Approved'
-                    ExpenseExpenseReportStatusChangeMailer.approved_notification.deliver_now!
+                    ExpenseExpenseReportStatusChangeMailer.approved_notification.deliver_later!
                 elsif expense_report_params[:status] == 'Partially Approved'
-                    ExpenseExpenseReportStatusChangeMailer.partially_approved_notification.deliver_now!
+                    ExpenseExpenseReportStatusChangeMailer.partially_approved_notification.deliver_later!
                 elsif expense_report_params[:status] == 'Rejected'
-                    ExpenseExpenseReportStatusChangeMailer.rejected_notification.deliver_now!
+                    ExpenseExpenseReportStatusChangeMailer.rejected_notification.deliver_later!
                 end
                 redirect_to expense_report_path(@expense_report), notice: 'ExpenseReport has been updated successfully!'
             else
